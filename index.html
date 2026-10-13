@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adivina la obra 🎭</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Adivina la obra</h1>
+    <div class="chips">
+      <span class="chip ok" title="Aciertos a la primera en esta sesión">✔ <b id="s-ok">0</b></span>
+      <span class="chip ko" title="Fallos en esta sesión">✘ <b id="s-ko">0</b></span>
+      <span class="chip streak" title="Racha actual">🔥 <b id="s-streak">0</b></span>
+      <span class="chip master" title="Obras dominadas (acertadas varias veces seguidas)">🏆 <b id="s-master">0</b>/<span id="s-total">0</span></span>
+    </div>
+  </header>
+
+  <main>
+    <section class="stage card">
+      <div class="player-wrap">
+        <div id="player"></div>
+        <div id="cover" class="cover">
+          <div class="disc"><div class="label">?</div></div>
+          <p id="cover-text">Escucha y adivina la obra y su autor</p>
+        </div>
+        <div id="start" class="start">
+          <button id="btn-start" class="btn primary big" disabled>Cargando…</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="btn-back" class="btn icon" title="Retroceder 10 s" aria-label="Retroceder 10 segundos">⏪</button>
+        <button id="btn-play" class="btn icon play" title="Reproducir / pausar" aria-label="Reproducir o pausar">▶</button>
+        <button id="btn-fwd" class="btn icon" title="Avanzar 10 s" aria-label="Avanzar 10 segundos">⏩</button>
+        <span id="t-cur" class="time">0:00</span>
+        <input id="seek" type="range" min="0" max="0" step="1" value="0" aria-label="Posición">
+        <span id="t-dur" class="time">0:00</span>
+      </div>
+
+      <form id="answer-form" class="answer" autocomplete="off">
+        <div class="combo">
+          <input id="answer" type="text" placeholder="Escribe la obra y el autor…" aria-autocomplete="list" aria-controls="suggestions" spellcheck="false">
+          <ul id="suggestions" class="suggestions" role="listbox" hidden></ul>
+        </div>
+        <div class="actions">
+          <button id="btn-check" type="submit" class="btn primary">Comprobar</button>
+          <button id="btn-giveup" type="button" class="btn ghost">Me rindo</button>
+        </div>
+      </form>
+
+      <div id="feedback" class="feedback" aria-live="polite"></div>
+
+      <div class="after">
+        <button id="btn-video" type="button" class="btn ghost" hidden>👁 Ver vídeo</button>
+        <button id="btn-next" type="button" class="btn primary" hidden>Siguiente ➜</button>
+      </div>
+    </section>
+
+    <details class="card progress">
+      <summary>📊 Mi progreso y lista de obras</summary>
+      <label class="toggle">
+        <input id="review-mode" type="checkbox" checked>
+        Modo repaso: que salgan más las que fallo
+      </label>
+      <table>
+        <thead><tr><th>Obra</th><th>Autor</th><th title="Aciertos">✔</th><th title="Fallos">✘</th><th>Nivel</th></tr></thead>
+        <tbody id="stats-body"></tbody>
+      </table>
+      <button id="btn-reset" type="button" class="btn ghost small">Borrar progreso</button>
+    </details>
+  </main>
+
+  <script src="songs.js"></script>
+  <script src="app.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
